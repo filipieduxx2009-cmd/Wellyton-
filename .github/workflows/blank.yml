@@ -1,30 +1,22 @@
-
 name: RDP
-
-#rdp by JoyWardanaa modifed on:
-
-workflow_dispatch:
+# rdp by JoyWardanaa modified
+on:
+  workflow_dispatch:
 
 jobs:
+  secure-rdp:
+    runs-on: windows-latest
+    timeout-minutes: 3600
 
-secure-rdp:
+    steps:
+      - name: Configure Core RDP Settings By JoyWardanaa
+        run: |
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0 -Force
 
-runs-on: windows-latest timeout-minutes: 3600
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 0 -Force
 
-steps:
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "SecurityLayer" -Value 0 -Force
 
-- name: Configure Core RDP Settings By JoyWardanaa
-
-run: |
-
-Set-ItemProperty -Path 'HKLM: \System\CurrentControlSet\Co ntrol\Terminal Server' -Name "fDenyTSConnections"-Value 0-Force Set-ItemProperty -Path 'HKLM: \System\CurrentControlSet\Control\T erminal Server\WinStations\RDP-Top' -Name "UserAuthentication" -Value 0 -Force
-
-Set-ItemProperty -Path 'HKLM: \System\CurrentControlSet\Control\T erminal Server\WinStations\RDP-Top' -Name "SecurityLayer" -Value 0-Force
-
-netsh advfirewall firewall delete rule name="RDP-Tailscale"
-
-netsh advfirewall firewall add...
-
-Baca selengkapnya
-
-16.23
+          netsh advfirewall firewall delete rule name="RDP-Tailscale"
+          netsh advfirewall firewall add...
+          
